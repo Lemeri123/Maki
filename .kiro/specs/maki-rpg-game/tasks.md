@@ -26,18 +26,18 @@ Incremental implementation of the full Maki RPG game. Each task builds on the pr
   - Pre-populate `quests` and `npcDialogueState` keys from the data files so `reset()` can restore them cleanly
   - _Requirements: 5.5, 8.4_
 
-- [-] 4. Pure logic modules (no Phaser dependency)
-  - [-] 4.1 Create `game/logic/DialogueLogic.js` — a plain class with `constructor(lines)`, `advance()`, `isOpen()`, `hasPendingQuestOffer()`, and static `getLinesForNpc(npc, phaseIndex)` — no Phaser objects, operates only on arrays and booleans
+- [x] 4. Pure logic modules (no Phaser dependency)
+  - [x] 4.1 Create `game/logic/DialogueLogic.js` — a plain class with `constructor(lines)`, `advance()`, `isOpen()`, `hasPendingQuestOffer()`, and static `getLinesForNpc(npc, phaseIndex)` — no Phaser objects, operates only on arrays and booleans
     - _Requirements: 3.5, 3.6, 3.7, 3.8_
-  - [~] 4.2 Create `game/logic/QuestLogic.js` — a plain class with `constructor(questId)`, `accept(questId)`, `complete(questId)`, `isActive(questId)`, `isComplete(questId)`, `getState()`, and `checkCompletion(questId, gameState)` — state machine enforcing `inactive → active → complete` monotonicity
+  - [x] 4.2 Create `game/logic/QuestLogic.js` — a plain class with `constructor(questId)`, `accept(questId)`, `complete(questId)`, `isActive(questId)`, `isComplete(questId)`, `getState()`, and `checkCompletion(questId, gameState)` — state machine enforcing `inactive → active → complete` monotonicity
     - _Requirements: 5.3, 5.5_
-  - [~] 4.3 Create `game/logic/FogLogic.js` — export a pure function `computeFogAlpha(collected, total, initialAlpha)` that returns `initialAlpha` when `collected <= total / 2` and `initialAlpha * 0.5` when `collected > total / 2`
+  - [x] 4.3 Create `game/logic/FogLogic.js` — export a pure function `computeFogAlpha(collected, total, initialAlpha)` that returns `initialAlpha` when `collected <= total / 2` and `initialAlpha * 0.5` when `collected > total / 2`
     - _Requirements: 9.5_
-  - [~] 4.4 Create `game/logic/HUDLogic.js` — export pure functions `buildFragmentText(gameState)` (returns e.g. `"Memories: 3 / 8"`) and `buildQuestText(gameState)` (returns active quest name or empty string)
+  - [x] 4.4 Create `game/logic/HUDLogic.js` — export pure functions `buildFragmentText(gameState)` (returns e.g. `"Memories: 3 / 8"`) and `buildQuestText(gameState)` (returns active quest name or empty string)
     - _Requirements: 4.4, 7.2_
-  - [~] 4.5 Create `game/logic/FragmentLogic.js` — export `collectFragment(state, fragmentId)` (idempotent push) and `getSpawnableFragments(definitions, collectedIds)` (filters out already-collected IDs)
+  - [x] 4.5 Create `game/logic/FragmentLogic.js` — export `collectFragment(state, fragmentId)` (idempotent push) and `getSpawnableFragments(definitions, collectedIds)` (filters out already-collected IDs)
     - _Requirements: 4.2, 4.5_
-  - [~] 4.6 Create `game/logic/MovementLogic.js` — export `canMove(overlayState)` where `overlayState = { dialogueOpen, inventoryOpen, cutsceneActive }` returns `true` only when all are `false`
+  - [x] 4.6 Create `game/logic/MovementLogic.js` — export `canMove(overlayState)` where `overlayState = { dialogueOpen, inventoryOpen, cutsceneActive }` returns `true` only when all are `false`
     - _Requirements: 3.4, 7.4, 8.2_
 
 - [ ] 5. Property-based tests for all correctness properties
@@ -82,66 +82,66 @@ Incremental implementation of the full Maki RPG game. Each task builds on the pr
     - **Property 10: NPC dialogue lines match current phase**
     - **Validates: Requirements 3.8**
 
-- [~] 6. Checkpoint — run all property tests
+- [x] 6. Checkpoint — run all property tests
   - Ensure all tests pass, ask the user if questions arise.
 
-- [~] 7. Tilemap JSON files
-  - [~] 7.1 Create `game/assets/maps/town_map.json` — a 50×50 tile map using `assets/rooms/room1.png` as tileset, with a `floor` layer, a `furniture` layer, and a `collisions` array; include at least two open areas and two building-entrance collision-free zones matching the trigger zone positions defined in `game/data/npcs.js` and `game/data/fragments.js`
+- [x] 7. Tilemap JSON files
+  - [x] 7.1 Create `game/assets/maps/town_map.json` — a 50×50 tile map using `assets/rooms/room1.png` as tileset, with a `floor` layer, a `furniture` layer, and a `collisions` array; include at least two open areas and two building-entrance collision-free zones matching the trigger zone positions defined in `game/data/npcs.js` and `game/data/fragments.js`
     - _Requirements: 2.1, 6.1, 10.3, 10.5_
-  - [~] 7.2 Create `game/assets/maps/library_map.json` — a 20×15 tile interior map using `assets/rooms/room2.png`, with `floor`, `furniture`, and `collisions` layers; include an exit trigger zone near the bottom edge
+  - [x] 7.2 Create `game/assets/maps/library_map.json` — a 20×15 tile interior map using `assets/rooms/room2.png`, with `floor`, `furniture`, and `collisions` layers; include an exit trigger zone near the bottom edge
     - _Requirements: 6.3, 10.3, 10.5_
-  - [~] 7.3 Create `game/assets/maps/cafe_map.json` — a 20×15 tile interior map using `assets/rooms/room3.png`, with `floor`, `furniture`, and `collisions` layers; include an exit trigger zone near the bottom edge
+  - [x] 7.3 Create `game/assets/maps/cafe_map.json` — a 20×15 tile interior map using `assets/rooms/room3.png`, with `floor`, `furniture`, and `collisions` layers; include an exit trigger zone near the bottom edge
     - _Requirements: 6.3, 10.3, 10.5_
 
-- [~] 8. SceneTransition utility
+- [x] 8. SceneTransition utility
   - Create `game/utils/SceneTransition.js` exporting `transitionTo(fromScene, targetSceneKey, data = {})` — fades camera to black over 300 ms then calls `fromScene.scene.start(targetSceneKey, data)`; include an `isTransitioning` guard to prevent duplicate calls
   - _Requirements: 6.5_
 
-- [~] 9. GameState singleton — wire data files
+- [x] 9. GameState singleton — wire data files
   - Update `game/state/GameState.js` to import quest IDs from `game/data/quests.js` and NPC IDs from `game/data/npcs.js` so `quests` and `npcDialogueState` are pre-populated with correct keys at module load time, and `reset()` restores them all
   - _Requirements: 5.5, 8.4_
 
-- [~] 10. DialogueSystem (Phaser-aware wrapper)
+- [x] 10. DialogueSystem (Phaser-aware wrapper)
   - Create `game/systems/DialogueSystem.js` — a class that wraps `DialogueLogic`; `constructor(scene)` creates a Phaser `Graphics` rounded-rect bubble and `Text` objects added to a fixed-camera UI layer (`setScrollFactor(0)`); `show(npc)` reads the NPC's current phase from `GameState.npcDialogueState` and delegates to `DialogueLogic`; `advance()` delegates and emits a `'dialogue-closed'` event when done; `isOpen()` delegates; plays a soft pop SFX on open and close
   - _Requirements: 3.2, 3.3, 3.4, 3.5, 3.6, 3.7, 3.8, 9.3_
 
-- [~] 11. FragmentSystem
+- [x] 11. FragmentSystem
   - Create `game/systems/FragmentSystem.js` — `constructor(scene, playerSprite)` sets up a Phaser static physics group; `spawnFragments(definitions)` calls `getSpawnableFragments` from `FragmentLogic`, creates sprites for each spawnable fragment, and registers `physics.add.overlap(playerSprite, group, onCollect)`; `onCollect` calls `collectFragment`, removes the sprite, shows a pop-up `Text` object with the fragment's memory text (auto-destroys after 2 s), plays a chime SFX, and updates `GameState`
   - _Requirements: 4.1, 4.2, 4.3, 4.5, 9.2_
 
-- [~] 12. QuestSystem
+- [x] 12. QuestSystem
   - Create `game/systems/QuestSystem.js` — thin wrapper around `QuestLogic` and `GameState.quests`; `accept(questId)` delegates to `QuestLogic` and updates `GameState`; `isActive` / `isComplete` read from `GameState`; `checkCompletion(questId, gameState)` evaluates `completionCondition` from the quest definition and calls `complete()` if met
   - _Requirements: 5.2, 5.3, 5.4, 5.5_
 
-- [~] 13. HUD
+- [x] 13. HUD
   - Create `game/ui/HUD.js` — `constructor(scene)` creates three `Text` objects with `setScrollFactor(0)` positioned in the top-left corner for fragment count, active quest, and location name; `update(gameState)` calls `buildFragmentText` and `buildQuestText` from `HUDLogic` and sets the text values; `show()` / `hide()` toggle visibility; `openInventory()` creates a full-screen panel listing all collected fragments with their memory text; `closeInventory()` destroys the panel
   - _Requirements: 4.4, 7.1, 7.2, 7.3, 7.4, 7.5_
 
-- [~] 14. FogOverlay
+- [x] 14. FogOverlay
   - Create `game/ui/FogOverlay.js` — `constructor(scene, mapWidth, mapHeight)` creates a Phaser `Graphics` rectangle covering the full map at depth above the tilemap but below the HUD, initial alpha 0.6; `setOpacity(alpha)` tweens to the target alpha over 500 ms; `updateForFragments(collectedCount, total)` calls `computeFogAlpha` from `FogLogic` and calls `setOpacity` with the result
   - _Requirements: 9.4, 9.5_
 
-- [~] 15. MenuScene
+- [x] 15. MenuScene
   - Create `game/scenes/MenuScene.js` extending Maki `Scene`; `preload()` calls `super.preload()` and `manager.preload(this)`; `create()` renders the game title text, a "Press Enter to Start" prompt, and a background using `assets/rooms/room1.png`; listens for Enter key and click on the start prompt to call `transitionTo(this, 'TownScene')`; registers a `loaderror` handler that displays an error message on canvas
   - _Requirements: 1.1, 1.2, 1.4_
 
-- [~] 16. TownScene
+- [x] 16. TownScene
   - Create `game/scenes/TownScene.js` extending Maki `Scene`; `preload()` loads `town_map` via `manager.map(this, 'town_map')` and calls `manager.preload(this)`; `create()` calls `manager.create(this)`, creates Ash via `this.maki.player('ash')`, places Ash at tile (5, 5), adds collision with the wall group, configures camera to follow Ash and clamp to map bounds, instantiates `DialogueSystem`, `FragmentSystem`, `QuestSystem`, `HUD`, and `FogOverlay`, spawns NPCs from `game/data/npcs.js` at their tile positions, spawns fragments via `FragmentSystem.spawnFragments`, sets up E-key proximity interaction prompt, sets up building entrance trigger zones, and listens for I-key to open/close inventory; `update()` calls `this.maki.move(ash)` only when `canMove(overlayState)` is `true`, calls `HUD.update(GameState)`, calls `QuestSystem.checkCompletion` for active quests, and checks if all 8 fragments are collected to trigger `transitionTo(this, 'EndScene')`
   - _Requirements: 2.1, 2.2, 2.3, 2.4, 2.5, 2.6, 3.1, 3.2, 3.3, 4.1, 4.4, 5.2, 6.1, 6.2, 7.1, 9.1, 9.4, 10.1, 10.2, 10.3, 10.4_
 
-- [~] 17. LibraryScene
+- [x] 17. LibraryScene
   - Create `game/scenes/LibraryScene.js` extending Maki `Scene`; `preload()` loads `library_map`; `create()` places Ash at the interior entrance position (passed via scene `data`), spawns any library-specific NPCs or fragments, sets up an exit trigger zone that calls `transitionTo(this, 'TownScene', { returnPos: GameState.townReturnPos })`; updates `GameState.currentLocation` to `'library'` on create and back to `'town'` on exit
   - _Requirements: 6.2, 6.3, 6.4, 6.5, 10.1_
 
-- [~] 18. CafeScene
+- [x] 18. CafeScene
   - Create `game/scenes/CafeScene.js` extending Maki `Scene`; same structure as `LibraryScene` but loads `cafe_map`, places Ash at the café entrance, and updates `GameState.currentLocation` to `'cafe'`
   - _Requirements: 6.2, 6.3, 6.4, 6.5, 10.1_
 
-- [~] 19. EndScene
+- [x] 19. EndScene
   - Create `game/scenes/EndScene.js` extending Maki `Scene`; `create()` disables player movement, displays a series of full-screen dialogue panels narrating the restored town history (driven by a simple array of strings advanced with Enter/Space), then shows the end screen with "Maplewood remembers. Thanks for playing." and a restart prompt; on restart, calls `GameState.reset()` then `transitionTo(this, 'MenuScene')`
   - _Requirements: 8.1, 8.2, 8.3, 8.4_
 
-- [~] 20. Checkpoint — wire all scenes together
+- [x] 20. Checkpoint — wire all scenes together
   - Ensure all scenes are imported and registered in `game/game.js`
   - Verify `maki.config.js` lists all four maps and both sprites
   - Ensure all tests pass, ask the user if questions arise.
