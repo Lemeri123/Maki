@@ -4,6 +4,11 @@ A 2D pixel RPG built with the [Maki framework](https://github.com/tial-ops/maki)
 
 You play as **Ash**, a wandering archivist who arrives in Maplewood to find that every resident has lost their memory due to a mysterious **Memory Fog**. Explore the town, talk to the locals, collect lost Memory Fragments, and restore the town's history before it's forgotten forever.
 
+<img width="1113" height="863" alt="Screenshot from 2026-05-07 22-21-01" src="https://github.com/user-attachments/assets/bafd452f-ef08-47f7-a1e4-08885f1b8f8e" />
+<img width="1113" height="863" alt="Screenshot from 2026-05-07 22-35-55" src="https://github.com/user-attachments/assets/fbba3e36-cba5-4a62-9560-872546697f5b" />
+
+
+
 ---
 
 ## Getting Started
