@@ -6,6 +6,7 @@ import { FragmentSystem } from '../systems/FragmentSystem.js'
 import { QuestSystem } from '../systems/QuestSystem.js'
 import { HUD } from '../ui/HUD.js'
 import { FogOverlay } from '../ui/FogOverlay.js'
+import { TownRenderer } from '../ui/TownRenderer.js'
 import GameState from '../state/GameState.js'
 import npcs from '../data/npcs.js'
 import fragments from '../data/fragments.js'
@@ -44,6 +45,7 @@ export default class TownScene extends Scene {
     const startX = data.returnPos?.x ?? 5 * TILE_SIZE
     const startY = data.returnPos?.y ?? 5 * TILE_SIZE
     this.ash.sprite.setPosition(startX, startY)
+    this.ash.sprite.setDepth(20) // above all town decorations (roads at 1, buildings at 3)
 
     // Collision
     this.physics.add.collider(this.ash.sprite, manager.getWallGroup(this, 'town_map'))
@@ -53,6 +55,9 @@ export default class TownScene extends Scene {
     const mapH = 50 * TILE_SIZE
     this.cameras.main.setBounds(0, 0, mapW, mapH)
     this.cameras.main.startFollow(this.ash.sprite, true, 0.1, 0.1)
+
+    // Draw the town layout (buildings, paths, fountain, trees, decorations)
+    new TownRenderer(this)
 
     // Systems
     this._dialogue = new DialogueSystem(this)
@@ -76,12 +81,12 @@ export default class TownScene extends Scene {
       const py = npc.tileY * TILE_SIZE
       // Frame 18 = first frame of down-facing animation (idle pose)
       const sprite = this.add.sprite(px, py, 'npc', 18)
-        .setDepth(10)
+        .setDepth(15)
         .setTint(NPC_TINTS[npc.id] ?? 0xffffff)
       // Name label above the sprite
       this.add.text(px, py - 36, npc.name, {
         fontSize: '9px', fill: '#ffffff', backgroundColor: '#00000088', padding: { x: 2, y: 1 }
-      }).setOrigin(0.5, 1).setDepth(11)
+      }).setOrigin(0.5, 1).setDepth(16)
       this._npcSprites.push({ npc, sprite })
     }
 
