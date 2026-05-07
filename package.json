@@ -1,0 +1,12 @@
+{
+  "scripts": {
+    "test": "vitest --run"
+  },
+  "dependencies": {
+    "@tialops/maki": "^1.1.0"
+  },
+  "devDependencies": {
+    "fast-check": "^3.22.0",
+    "vitest": "^2.1.0"
+  }
+}
