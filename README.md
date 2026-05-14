@@ -42,7 +42,6 @@ There are 4 characters to find:
 Yellow glowing circles scattered around the map are **Memory Fragments**. Walk into one to collect it. A pop-up will reveal the memory it contains.
 
 The top-left HUD shows your progress: **Memories: X / 8**
-
 Collect all 8 to trigger the ending.
 
 ### Quests
